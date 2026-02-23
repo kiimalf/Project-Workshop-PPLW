@@ -77,6 +77,13 @@
                         </button>
                     </div>
 
+                    <div class="text-center mt-4">
+                        <a href="{{ route('auth.google') }}"
+                        class="">
+                            Register dengan Google
+                        </a>
+                    </div>
+
                     <div class="text-center mt-4 font-weight-light">
                         Already have an account?
                         <a href="{{ route('login') }}" class="text-primary">Login</a>
