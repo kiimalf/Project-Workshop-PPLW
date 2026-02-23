@@ -7,60 +7,67 @@ use App\Models\Kategori;
 
 class KategoriController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Tampilkan semua kategori
     public function index()
     {
         $kategori = Kategori::all();
-        return view('kategori', compact('kategori'));
+        return view('kategori.index', compact('kategori'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Tampilkan form tambah
     public function create()
     {
-        //
+        return view('kategori.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Simpan data baru
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_kategori' => 'required'
+        ]);
+
+        Kategori::create($request->all());
+
+        return redirect()->route('kategori.index')
+            ->with('success', 'Kategori berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Tampilkan detail kategori
     public function show(string $id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        return view('kategori.show', compact('kategori'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Tampilkan form edit
     public function edit(string $id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        return view('kategori.edit', compact('kategori'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Update kategori
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama_kategori' => 'required'
+        ]);
+
+        $kategori = Kategori::findOrFail($id);
+        $kategori->update($request->all());
+
+        return redirect()->route('kategori.index')
+            ->with('success', 'Kategori berhasil diperbarui');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Hapus kategori
     public function destroy(string $id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        $kategori->delete();
+
+        return redirect()->route('kategori.index')
+            ->with('success', 'Kategori berhasil dihapus');
     }
 }

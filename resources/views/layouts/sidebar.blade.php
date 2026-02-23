@@ -5,7 +5,7 @@
     <li class="nav-item nav-profile">
       <a href="#" class="nav-link">
         <div class="nav-profile-image">
-          <img src="#" alt="profile" />
+          <img src="{{ asset('#') }}" alt="profile" /> />
           <span class="login-status online"></span>
           <!--change to offline or busy as needed-->
         </div>
@@ -27,14 +27,14 @@
         <i class="mdi mdi-home menu-icon"></i>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('kategori') }}">
+    <li class="nav-item {{ request()->routeIs('kategori.*') ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('kategori.index') }}">
         <span class="menu-title">Kategori</span>
         <i class="mdi mdi-shape-plus menu-icon"></i>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('buku') }}">
+    <li class="nav-item {{ request()->routeIs('buku.*') ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('buku.index') }}">
         <span class="menu-title">Buku</span>
         <i class="mdi mdi-book-open menu-icon"></i>
       </a>

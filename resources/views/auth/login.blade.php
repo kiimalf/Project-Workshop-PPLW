@@ -52,31 +52,30 @@
                             SIGN IN
                         </button>
                     </div>
-
+                    <div class="mt-4">
+                        <a href="{{ route('auth.google') }}"
+                        class="">
+                            Login dengan Google
+                        </a>
+                    </div>
                     <div class="my-2 d-flex justify-content-between align-items-center">
-                        
-
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}" class="auth-link text-primary">
                                 Forgot password?
                             </a>
                         @endif
                     </div>
-
                     <div class="text-center mt-4 font-weight-light">
                         Don't have an account?
                         <a href="{{ route('register') }}" class="text-primary">Create</a>
                     </div>
                 </form>
-
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                            <!-- content-wrapper ends -->
-                        </div>
-                        <!-- page-body-wrapper ends -->
-                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script-page')
