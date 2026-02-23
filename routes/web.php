@@ -20,4 +20,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('kategori', App\Http\Controllers\KategoriController::class);
 
     Route::resource('buku', App\Http\Controllers\BukuController::class);
+
+    Route::get('/undangan/download', [App\Http\Controllers\PdfController::class, 'downloadUndangan'])->name('undangan.download');
+    Route::get('/undangan', [App\Http\Controllers\PdfController::class, 'previewUndangan'])->name('undangan.preview');
+
+    Route::get('/sertifikat/download', [App\Http\Controllers\PdfController::class, 'downloadSertifikat'])->name('sertifikat.download');
+    Route::get('/sertifikat', [App\Http\Controllers\PdfController::class, 'previewSertifikat'])->name('sertifikat.preview');
 });

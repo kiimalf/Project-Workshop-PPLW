@@ -39,6 +39,36 @@
         <i class="mdi mdi-book-open menu-icon"></i>
       </a>
     </li>
+    <li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('sertifikat.*','undangan.*') ? '' : 'collapsed' }}"
+       data-bs-toggle="collapse"
+       href="#generatePdf"
+       aria-expanded="{{ request()->routeIs('sertifikat.*','undangan.*') ? 'true' : 'false' }}"
+       aria-controls="generatePdf">
+
+        <span class="menu-title">Generate PDF</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-file-pdf-box menu-icon"></i>
+    </a>
+
+    <div class="collapse {{ request()->routeIs('sertifikat.*','undangan.*') ? 'show' : '' }}"
+         id="generatePdf">
+        <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('sertifikat.*') ? 'active' : '' }}"
+                   href="{{ route('sertifikat.preview') }}">
+                    Sertifikat
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('undangan.*') ? 'active' : '' }}"
+                   href="{{ route('undangan.preview') }}">
+                    Undangan
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>
   </ul>
 </nav>
 <!-- partial -->
