@@ -21,6 +21,12 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('buku', App\Http\Controllers\BukuController::class);
 
+
+    Route::post('/barang/previewPdf', [App\Http\Controllers\BarangController::class, 'previewPdf'])->name('barang.previewPdf');
+    Route::get('/barang/previewPdf', [App\Http\Controllers\BarangController::class, 'preview'])->name('barang.preview');
+    Route::post('/barang/print', [App\Http\Controllers\BarangController::class, 'printPdf'])->name('barang.print');
+    Route::resource('barang', App\Http\Controllers\BarangController::class);
+    
     Route::get('/undangan/download', [App\Http\Controllers\PdfController::class, 'downloadUndangan'])->name('undangan.download');
     Route::get('/undangan', [App\Http\Controllers\PdfController::class, 'previewUndangan'])->name('undangan.preview');
 
