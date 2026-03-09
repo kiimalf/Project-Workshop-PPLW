@@ -32,35 +32,35 @@
                     </div>
                 @endif
 
-                <form action="{{ route('buku.update', $buku->idbuku) }}" method="POST">
+                <form id="form" action="{{ route('buku.update', $buku->idbuku) }}" method="POST">
                     @csrf
                     @method('PUT')
 
                     <div class="form-group">
                         <label>Kode Buku</label>
                         <input type="text"
-                               name="kode"
-                               class="form-control"
-                               value="{{ old('kode', $buku->kode) }}"
-                               required>
+                            name="kode"
+                            class="form-control"
+                            value="{{ old('kode', $buku->kode) }}"
+                            required>
                     </div>
 
                     <div class="form-group">
                         <label>Judul Buku</label>
                         <input type="text"
-                               name="judul"
-                               class="form-control"
-                               value="{{ old('judul', $buku->judul) }}"
-                               required>
+                            name="judul"
+                            class="form-control"
+                            value="{{ old('judul', $buku->judul) }}"
+                            required>
                     </div>
 
                     <div class="form-group">
                         <label>Pengarang</label>
                         <input type="text"
-                               name="pengarang"
-                               class="form-control"
-                               value="{{ old('pengarang', $buku->pengarang) }}"
-                               required>
+                            name="pengarang"
+                            class="form-control"
+                            value="{{ old('pengarang', $buku->pengarang) }}"
+                            required>
                     </div>
 
                     <div class="form-group">
@@ -75,19 +75,38 @@
                             @endforeach
                         </select>
                     </div>
-
-                    <button type="submit" class="btn btn-warning">
-                        Update
-                    </button>
-
-                    <a href="{{ route('buku.index') }}" class="btn btn-light">
-                        Kembali
-                    </a>
-
                 </form>
+                <button id="submit" class="btn btn-warning">
+                    Update
+                </button>
 
+                <a href="{{ route('buku.index') }}" class="btn btn-light">
+                    Kembali
+                </a>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('script-page')
+    <script>
+        $(document).ready(function() {
+            $('#submit').click(function() {
+                let form = document.getElementById('form');
+
+                if(!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                $('#submit').html(
+                    '<span class="spinner-border spinner-border-sm"></span> Loading'
+                )
+                $('#submit').prop('disabled', true);
+
+                form.submit();
+            });
+        });
+    </script>
 @endsection

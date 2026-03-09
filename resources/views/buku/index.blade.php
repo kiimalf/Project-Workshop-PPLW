@@ -54,16 +54,20 @@
                                     class="btn btn-warning btn-sm">
                                     Edit
                                 </a>
-                                <form action="{{ route('buku.destroy', $item->idbuku) }}"
-                                        method="POST"
-                                        class="d-inline"
-                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                <form id="form-{{ $item->idbuku }}"
+                                    action="{{ route('buku.destroy', $item->idbuku) }}"
+                                    method="POST"
+                                    class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">
+
+                                    <button type="button"
+                                            id="deleteButton-{{ $item->idbuku }}"
+                                            class="btn btn-danger btn-sm">
                                         Hapus
                                     </button>
                                 </form>
+
                             </td>
                         </tr>
                     @empty
@@ -79,4 +83,26 @@
         </div>
         </div>
     </div>
+@endsection
+
+@section('script-page')
+    <script>
+        $(document).ready(function(){
+
+        $("button[id^='deleteButton-']").click(function(){
+
+            let button = $(this);
+            let form = button.closest('form')[0];
+
+            button.html(
+                '<span class="spinner-border spinner-border-sm"></span> Loading'
+            );
+
+            button.prop('disabled', true);
+
+            form.submit();
+
+            });
+        });
+    </script>
 @endsection

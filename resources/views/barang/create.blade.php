@@ -32,7 +32,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('barang.store') }}" method="POST">
+                    <form id="form" action="{{ route('barang.store') }}" method="POST">
                         @csrf
 
                         <div class="form-group">
@@ -62,19 +62,40 @@
                                 value="{{ old('stok') }}"
                                 required>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">
-                            Simpan
-                        </button>
-
-                        <a href="{{ route('barang.index') }}" class="btn btn-light">
-                            Kembali
-                        </a>
-
                     </form>
+
+                    <button id="submit" class="btn btn-primary">
+                        Simpan
+                    </button>
+
+                    <a href="{{ route('barang.index') }}" class="btn btn-light">
+                        Kembali
+                    </a>
 
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script-page')
+    <script>
+        $(document).ready(function() {
+            $('#submit').click(function() {
+                let form = document.getElementById('form');
+
+                if(!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                $('#submit').html(
+                    '<span class="spinner-border spinner-border-sm"></span> Loading'
+                )
+                $('#submit').prop('disabled', true);
+
+                form.submit();
+            });
+        });
+    </script>
 @endsection

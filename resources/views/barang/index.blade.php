@@ -66,13 +66,13 @@ href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
                                     class="btn btn-warning btn-sm">
                                     Edit
                                 </a>
-                                <form action="{{ route('barang.destroy', $item->idbarang) }}"
+                                <form id="form-{{ $item->idbarang }}" action="{{ route('barang.destroy',$item->idbarang) }}"
                                     method="POST"
-                                    class="d-inline"
-                                    onsubmit="return confirm('Yakin ingin menghapus barang ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">
+                                    class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button"
+                                        id="deleteButton-{{ $item->idbarang }}" class="btn btn-danger btn-sm">
                                         Hapus
                                     </button>
                                 </form>
@@ -97,12 +97,25 @@ href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 @endsection
 
 @section('script-page')
-<script>
-$(document).ready(function () {
-    $('#tableBarang').DataTable();
-});
-</script>
-
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#tableBarang').DataTable();
+
+        $(document).on("click","button[id^='deleteButton-']", function(){
+
+            let button = $(this);
+            let form = button.closest('form')[0];
+
+            button.html(
+                '<span class="spinner-border spinner-border-sm"></span> Loading'
+            );
+
+            button.prop('disabled', true);
+
+            form.submit();
+        });
+    });
+</script>
 @endsection
+

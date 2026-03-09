@@ -32,31 +32,47 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('kategori.update', $kategori->idkategori) }}" method="POST">
+                    <form id="form" action="{{ route('kategori.update', $kategori->idkategori) }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="form-group">
                             <label>Nama Kategori</label>
-                            <input type="text"
-                                   name="nama_kategori"
-                                   class="form-control"
-                                   value="{{ old('nama_kategori', $kategori->nama_kategori) }}"
-                                   required>
+                            <input type="text" name="nama_kategori" class="form-control" value="{{ old('nama_kategori', $kategori->nama_kategori) }}" required>
                         </div>
-
-                        <button type="submit" class="btn btn-warning">
-                            Update
-                        </button>
-
-                        <a href="{{ route('kategori.index') }}" class="btn btn-light">
-                            Kembali
-                        </a>
-
                     </form>
 
+                    <button id="submit" class="btn btn-warning">
+                        Update
+                    </button>
+
+                    <a href="{{ route('kategori.index') }}" class="btn btn-light">
+                        Kembali
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script-page')
+    <script>
+        $(document).ready(function() {
+            $('#submit').click(function() {
+                let form = document.getElementById('form');
+
+                if(!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                $('#submit').html(
+                    '<span class="spinner-border spinner-border-sm"></span> Loading'
+                )
+                $('#submit').prop('disabled', true);
+
+                form.submit();
+            });
+        });
+    </script>
 @endsection
