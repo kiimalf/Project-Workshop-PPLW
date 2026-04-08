@@ -34,7 +34,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/sertifikat/download', [App\Http\Controllers\PdfController::class, 'downloadSertifikat'])->name('sertifikat.download');
     Route::get('/sertifikat', [App\Http\Controllers\PdfController::class, 'previewSertifikat'])->name('sertifikat.preview');
 
-    Route::get('/modul4/tableHTML', [App\Http\Controllers\Modul4Controller::class, 'tableHTML'])->name('modul4.tableHTML');
-    Route::get('/modul4/datatables', [App\Http\Controllers\Modul4Controller::class, 'datatables'])->name('modul4.datatables');
-    Route::get('/modul4/2select', [App\Http\Controllers\Modul4Controller::class, 'selectKota'])->name('modul4.2select');
+    Route::get('/modul/tm4_tableHTML', [App\Http\Controllers\ModulController::class, 'tm4_tableHTML'])->name('modul.tm4_tableHTML');
+    Route::get('/modul/tm4_datatables', [App\Http\Controllers\ModulController::class, 'tm4_datatables'])->name('modul.tm4_datatables');
+    Route::get('/modul/tm4_2select', [App\Http\Controllers\ModulController::class, 'tm4_selectKota'])->name('modul4.2select');
+
+    Route::get('/modul/tm5_index',[App\Http\Controllers\ModulController::class, 'tm5_index'])->name('modul.tm5_index');
+    Route::post('/modul/tm5_ajaxSubmit',[App\Http\Controllers\ModulController::class, 'tm5_ajaxSubmit'])->name('modul.tm5_ajaxSubmit');
+    Route::get('/modul/tm5_ajaxSelect', [App\Http\Controllers\ModulController::class, 'tm5_ajaxSelect'])->name('modul.tm5_ajaxSelect');
+    Route::get('/modul/tm5_axiosSelect', [App\Http\Controllers\ModulController::class, 'tm5_axiosSelect'])->name('modul.tm5_axiosSelect');
+
+    Route::get('/modul/tm5_getProvinsi', [App\Http\Controllers\ModulController::class, 'tm5_getProvinsi'])->name('modul.tm5_getProvinsi');
+    Route::get('/modul/tm5_getKota', [App\Http\Controllers\ModulController::class, 'tm5_getKota'])->name('modul.tm5_getKota');
+    Route::get('/modul/tm5_getKecamatan', [App\Http\Controllers\ModulController::class, 'tm5_getKecamatan'])->name('modul.tm5_getKecamatan');
+    Route::get('/modul/tm5_getKelurahan', [App\Http\Controllers\ModulController::class, 'tm5_getKelurahan'])->name('modul.tm5_getKelurahan');
+
+    Route::get('/modul/tm5_ajaxPOS', [App\Http\Controllers\POSController::class, 'POS_ajax'])->name('POS_ajax');
+    Route::get('/modul/tm5_axiosPOS', [App\Http\Controllers\POSController::class, 'POS_axios'])->name('POS_axios');
+    Route::get('/modul/findBarang', [App\Http\Controllers\POSController::class, 'findBarang'])->name('findBarang');
+    Route::post('modul/store', [App\Http\COntrollers\POSController::class, 'store'])->name('store');
 });

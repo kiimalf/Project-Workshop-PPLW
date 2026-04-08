@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\DetailPenjualan;
 
 class Barang extends Model
 {
@@ -17,4 +18,9 @@ class Barang extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function detailPenjualan()
+    {
+        return $this->hasMany(DetailPenjualan::class, 'idbarang');
+    }
 }

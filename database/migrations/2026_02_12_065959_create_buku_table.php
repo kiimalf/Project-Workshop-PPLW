@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('buku');
         Schema::create('buku', function (Blueprint $table) {
             $table->id('idbuku');
             $table->string('kode');
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('idkategori');
 
             $table->foreign('idkategori')
-                ->references('id')
+                ->references('idkategori')
                 ->on('kategori')
                 ->onDelete('cascade');
         });
