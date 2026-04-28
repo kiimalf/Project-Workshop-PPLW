@@ -74,7 +74,7 @@
                 if (e.which == 13) {
                     let kodeBarang = $(this).val();
 
-                    axios.get("{{ route('findBarang') }}", {
+                    axios.get("{{ route('POS.findBarang') }}", {
                         params: { idbarang: kodeBarang }
                     }).then(res => {
                         let response = res.data;
@@ -217,7 +217,7 @@
                 return;
             }
 
-            axios.post("{{ route('store') }}", {
+            axios.post("{{ route('POS.store') }}", {
                 total: totalHarga,
                 items: dataBarang
             }, {

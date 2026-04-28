@@ -12,12 +12,12 @@ class POSController extends Controller
 {
     public function POS_ajax() {
         $barang = Barang::all();
-        return view('modul.tm5_ajaxPOS', compact('barang'));
+        return view('modul_5.ajaxPOS', compact('barang'));
     }
 
     public function POS_axios() {
         $barang = Barang::all();
-        return view('modul.tm5_axiosPOS', compact('barang'));
+        return view('modul_5.axiosPOS', compact('barang'));
     }
 
     public function findBarang(Request $request) {

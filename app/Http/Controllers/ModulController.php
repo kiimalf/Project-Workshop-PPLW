@@ -11,19 +11,19 @@ use App\Models\Kelurahan;
 class ModulController extends Controller
 {
     public function tm4_tableHTML() {
-        return view('modul.tm4_tableHTML');
+        return view('modul_4.tableHTML');
     }
 
     public function tm4_datatables() {
-        return view('modul.tm4_datatables');
+        return view('modul_4.datatables');
     }
     
     public function tm4_selectKota() {
-        return view('modul.tm4_2select');
+        return view('modul_4.2select');
     }
 
     public function tm5_index(){
-        return view('modul.tm5_index');
+        return view('modul_5.index');
     }
 
     public function tm5_ajaxSubmit(Request $req) {
@@ -40,11 +40,11 @@ class ModulController extends Controller
     }
 
     public function tm5_ajaxSelect() {
-        return view('modul.tm5_ajaxSelect');
+        return view('modul_5.ajaxSelect');
     }
 
     public function tm5_axiosSelect() {
-        return view('modul.tm5_axiosSelect');
+        return view('modul_5.axiosSelect');
     }
 
     public function tm5_getProvinsi() {

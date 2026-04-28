@@ -65,7 +65,7 @@
                 $('#kelurahan').html('<option value="0">Pilih Kelurahan</option>');
 
                 if(id != 0) {
-                    axios.get("{{ route('modul.tm5_getKota') }}", {
+                    axios.get("{{ route('modul_5.getKota') }}", {
                         params: { province_id: id }
                     }).then(response => {
                         appendOptions('kota', response.data.data);
@@ -80,7 +80,7 @@
                 $('#kelurahan').html('<option value="0">Pilih Kelurahan</option>');
 
                 if(id != 0) {
-                    axios.get("{{ route('modul.tm5_getKecamatan') }}", {
+                    axios.get("{{ route('modul_5.getKecamatan') }}", {
                         params: { regency_id: id }
                     }).then(response => {
                         appendOptions('kecamatan', response.data.data);
@@ -94,7 +94,7 @@
                 $('#kelurahan').html('<option value="0">Pilih Kelurahan</option>');
                 
                 if(id != 0) {
-                    axios.get("{{ route('modul.tm5_getKelurahan') }}", {
+                    axios.get("{{ route('modul_5.getKelurahan') }}", {
                         params: { district_id: id }
                     }).then(response => {
                         appendOptions('kelurahan', response.data.data);
@@ -104,7 +104,7 @@
         });
 
         function loadProvinsi() {
-            axios.get("{{ route('modul.tm5_getProvinsi') }}").then(response => {
+            axios.get("{{ route('modul_5.getProvinsi') }}").then(response => {
                 resetSelect('provinsi', 'Pilih Provinsi');
                 appendOptions('provinsi', response.data.data);
             }).catch(error => console.log(error));
@@ -125,84 +125,13 @@
             });
         }
 
-// -----------------------------
-        // document.addEventListener("DOMContentLoaded", function () {
-        //     loadProvinsi();
-
-        //     document.getElementById('provinsi').addEventListener('change', function () {
-        //         let id = this.value;
-
-        //         resetSelect('kota', 'Pilih Kota');
-        //         resetSelect('kecamatan', 'Pilih Kecamatan');
-        //         resetSelect('kelurahan', 'Pilih Kelurahan');
-
-        //         if (id != 0) {
-        //             axios.get("{{ route('modul.tm5_getKota') }}", {
-        //                 params: { province_id: id }
-        //             })
-        //             .then(response => {
-        //                 appendOptions('kota', response.data.data);
-        //             })
-        //             .catch(error => console.log(error));
-        //         }
-        //     });
-
-        //     document.getElementById('kota').addEventListener('change', function () {
-        //         let id = this.value;
-
-        //         resetSelect('kecamatan', 'Pilih Kecamatan');
-        //         resetSelect('kelurahan', 'Pilih Kelurahan');
-
-        //         if (id != 0) {
-        //             axios.get("{{ route('modul.tm5_getKecamatan') }}", {
-        //                 params: { regency_id: id }
-        //             })
-        //             .then(response => {
-        //                 appendOptions('kecamatan', response.data.data);
-        //             })
-        //             .catch(error => console.log(error));
-        //         }
-        //     });
-
-        //     document.getElementById('kecamatan').addEventListener('change', function () {
-        //         let id = this.value;
-
-        //         resetSelect('kelurahan', 'Pilih Kelurahan');
-
-        //         if (id != 0) {
-        //             axios.get("{{ route('modul.tm5_getKelurahan') }}", {
-        //                 params: { district_id: id }
-        //             })
-        //             .then(response => {
-        //                 appendOptions('kelurahan', response.data.data);
-        //             })
-        //             .catch(error => console.log(error));
-        //         }
-        //     });
-        // });
-
         function loadProvinsi() {
-            axios.get("{{ route('modul.tm5_getProvinsi') }}")
+            axios.get("{{ route('modul_5.getProvinsi') }}")
                 .then(response => {
                     resetSelect('provinsi', 'Pilih Provinsi');
                     appendOptions('provinsi', response.data.data);
                 })
                 .catch(error => console.log(error));
         }
-
-        // function resetSelect(id, label) {
-        //     document.getElementById(id).innerHTML = `<option value="0">${label}</option>`;
-        // }
-
-        // function appendOptions(id, data) {
-        //     let select = document.getElementById(id);
-
-        //     data.forEach(item => {
-        //         let option = document.createElement("option");
-        //         option.value = item.id;
-        //         option.text = item.name;
-        //         select.appendChild(option);
-        //     });
-        // }
     </script>
 @endsection

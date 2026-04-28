@@ -74,7 +74,7 @@
                     let kodeBarang = $(this).val();
 
                     $.ajax({
-                        url: "{{ route('findBarang') }}",
+                        url: "{{ route('POS.findBarang') }}",
                         type: "GET",
                         data: {idbarang: kodeBarang},
                         success: function(res) {
@@ -219,7 +219,7 @@
             }
 
             $.ajax({
-                url: "{{ route('store') }}",
+                url: "{{ route('POS.store') }}",
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",

@@ -66,7 +66,7 @@
 
                 if(id != 0) {
                     $.ajax({
-                        url: "{{ route('modul.tm5_getKota') }}",
+                        url: "{{ route('modul_5.getKota') }}",
                         type: 'GET',
                         data: {province_id: id},
                         success: function(response) {
@@ -88,7 +88,7 @@
 
                 if(id != 0) {
                     $.ajax({
-                        url: "{{ route('modul.tm5_getKecamatan') }}",
+                        url: "{{ route('modul_5.getKecamatan') }}",
                         type: 'GET',
                         data: {regency_id: id},
                         success: function(response) {
@@ -109,7 +109,7 @@
                 
                 if(id != 0) {
                     $.ajax({
-                        url: "{{ route('modul.tm5_getKelurahan') }}",
+                        url: "{{ route('modul_5.getKelurahan') }}",
                         type: 'GET',
                         data: {district_id: id},
                         success: function(response) {
@@ -126,7 +126,7 @@
 
         function loadProvinsi() {
             $.ajax({
-                url: "{{ route('modul.tm5_getProvinsi') }}",
+                url: "{{ route('modul_5.getProvinsi') }}",
                 type: 'GET',
                 success: function(response) {
                     $('#provinsi').html('<option value="0">Pilih Provinsi</option>');
