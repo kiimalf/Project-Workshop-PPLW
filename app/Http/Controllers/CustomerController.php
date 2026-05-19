@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Menu;
@@ -14,13 +15,107 @@ use App\Models\Payment;
 
 class CustomerController extends Controller
 {
-    public function index() {
-        $vendors = Vendor::all();
-        $menus = Menu::all();
-        return view('customer.index', compact('vendors', 'menus'));
+    public function index()
+    {
+        $customers = Customer::all();
+        return view('customer.index', compact('customers'));
     }
 
-    public function checkout(Request $request) {
+    public function create1()
+    {
+        return view('customer.create1');
+    }
+
+    public function create2()
+    {
+        return view('customer.create2');
+    }
+
+    public function store1(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'alamat' => 'required',
+            'provinsi' => 'required',
+            'kota' => 'required',
+            'kecamatan' => 'required',
+            'kelurahan' => 'required',
+        ]);
+
+        if ($request->filled('foto')) {
+            $foto_blob = $request->foto;
+        } else {
+            $foto_blob = null;
+        }
+
+        DB::beginTransaction();
+        try {
+            $customer = Customer::create([
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'id_provinsi' => $request->provinsi,
+                'id_kota' => $request->kota,
+                'id_kecamatan' => $request->kecamatan,
+                'id_kelurahan' => $request->kelurahan,
+                'foto_blob' => $foto_blob,
+            ]);
+            DB::commit();
+            return redirect()->route('customer.index')->with('success', 'Data berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    public function store2(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'alamat' => 'required',
+            'provinsi' => 'required',
+            'kota' => 'required',
+            'kecamatan' => 'required',
+            'kelurahan' => 'required',
+        ]);
+
+        if ($request->filled('foto')) {
+            $image_parts = explode(";base64,", $request->foto);
+            $image_binary = base64_decode($image_parts[1]);
+            $image_name = 'foto_' . time() . '.png';
+            Storage::disk('public')->put('foto_customer/' . $image_name, $image_binary);
+            $foto_path = 'foto_customer/' . $image_name;
+        } else {
+            $foto_path = null;
+        }
+
+        DB::beginTransaction();
+        try {
+            $customer = Customer::create([
+                'nama' => $request->nama,
+                'alamat' => $request->alamat,
+                'id_provinsi' => $request->provinsi,
+                'id_kota' => $request->kota,
+                'id_kecamatan' => $request->kecamatan,
+                'id_kelurahan' => $request->kelurahan,
+                'foto_path' => $foto_path,
+            ]);
+            DB::commit();
+            return redirect()->route('customer.index')->with('success', 'Data berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    public function catalog()
+    {
+        $vendors = Vendor::all();
+        $menus = Menu::all();
+        return view('customer.catalog', compact('vendors', 'menus'));
+    }
+
+    public function checkout(Request $request)
+    {
         $request->validate([
             'cart'         => 'required|array|min:1',
             'cart.*.idmenu'  => 'required|integer|exists:menu,idmenu',
@@ -52,20 +147,20 @@ class CustomerController extends Controller
             // 4. Simpan pesanan
             $pesanan = Pesanan::create([
                 'order_id' => $orderId,
-                'idcustomer'=> $customer->idcustomer,
-                'total'=> $total,
-                'status'=> 'pending',
+                'idcustomer' => $customer->idcustomer,
+                'total' => $total,
+                'status' => 'pending',
             ]);
 
             // 5. Simpan detail pesanan
             foreach ($cartItems as $ci) {
                 DetailPesanan::create([
-                    'idpesanan'=> $pesanan->idpesanan,
-                    'idmenu'=> $ci['menu']->idmenu,
-                    'jumlah'=> $ci['qty'],
-                    'harga'=> $ci['menu']->harga,
-                    'subtotal'=> $ci['subtotal'],
-                    'catatan'=> null,
+                    'idpesanan' => $pesanan->idpesanan,
+                    'idmenu' => $ci['menu']->idmenu,
+                    'jumlah' => $ci['qty'],
+                    'harga' => $ci['menu']->harga,
+                    'subtotal' => $ci['subtotal'],
+                    'catatan' => null,
                 ]);
             }
 
@@ -95,14 +190,14 @@ class CustomerController extends Controller
                 'order_id'   => $orderId,
                 'guest_id'   => $customer->idcustomer,
             ]);
-
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['message' => 'Server error: ' . $e->getMessage()], 500);
         }
     }
 
-    public function payment($idpesanan) {
+    public function payment($idpesanan)
+    {
         $pesanan = Pesanan::with(['detail.menu', 'customer'])->findOrFail($idpesanan);
 
         if ($pesanan->status === 'lunas') {
@@ -180,7 +275,6 @@ class CustomerController extends Controller
                 'metode_bayar' => strtoupper($paymentType),
                 'transaction_id' => $txId,
             ]);
-
         } elseif (in_array($txStatus, ['cancel', 'deny', 'expire'])) {
 
             $pesanan->update(['status' => 'batal']);
@@ -243,7 +337,6 @@ class CustomerController extends Controller
                 'success' => true,
                 'token'   => $snapToken
             ];
-
         } catch (\Exception $e) {
             return [
                 'success' => false,

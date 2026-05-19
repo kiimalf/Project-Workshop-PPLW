@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/modul_5/findBarang', [App\Http\Controllers\POSController::class, 'findBarang'])->name('POS.findBarang');
     Route::post('/modul_5/store', [App\Http\Controllers\POSController::class, 'store'])->name('POS.store');
 
-    Route::get('customer/index', [App\Http\Controllers\CustomerController::class, 'index'])->name('customer.index');
+    Route::get('customer/catalog', [App\Http\Controllers\CustomerController::class, 'catalog'])->name('customer.catalog');
     Route::get('customer/payment/{idpesanan}', [App\Http\Controllers\CustomerController::class, 'payment'])->name('customer.payment');
     Route::get('customer/success/{idpesanan}', [App\Http\Controllers\CustomerController::class, 'paymentSuccess'])->name('customer.paymentSuccess');
     Route::post('customer/updateStatus', [App\Http\Controllers\CustomerController::class, 'updateStatus'])->name('customer.updateStatus');
@@ -71,4 +71,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/vendor/{idvendor}/pesanan', [App\Http\Controllers\VendorController::class, 'getPesananByVendor'])->name('vendor.pesanan.index');
     Route::get('/vendor/{idvendor}/pesanan/{idpesanan}', [App\Http\Controllers\VendorController::class, 'getDetailPesanan'])->name('vendor.pesanan.detail');
+
+    Route::get('barcode/{idbarang}', [App\Http\Controllers\BarcodeController::class, 'generateBarcode'])->name('barcode.generate');
+    Route::get('qrcode/{idpesanan}', [App\Http\Controllers\BarcodeController::class, 'generateQrCode'])->name('qrcode.generate');
+
+    Route::get('customer/index',    [App\Http\Controllers\CustomerController::class, 'index'])->name('customer.index');
+    Route::get('customer/create1', [App\Http\Controllers\CustomerController::class, 'create1'])->name('customer.create1');
+    Route::get('customer/create2', [App\Http\Controllers\CustomerController::class, 'create2'])->name('customer.create2');
+    Route::post('customer/store1', [App\Http\Controllers\CustomerController::class, 'store1'])->name('customer.store1');
+    Route::post('customer/store2', [App\Http\Controllers\CustomerController::class, 'store2'])->name('customer.store2');
 });

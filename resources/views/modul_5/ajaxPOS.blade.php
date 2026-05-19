@@ -70,6 +70,7 @@
         var totalHarga = 0;
         $(document).ready(function() {
             $('#kodeBarang').keypress(function(e) {
+                console.log(e.which);
                 if (e.which == 13) {
                     let kodeBarang = $(this).val();
 
