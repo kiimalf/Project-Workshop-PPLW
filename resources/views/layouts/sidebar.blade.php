@@ -233,6 +233,37 @@
         </ul>
       </div>
     </li>
+
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('kunjungan_toko.*') ? '' : 'collapsed' }}"
+        data-bs-toggle="collapse"
+        href="#kunjungan_toko"
+        aria-expanded="{{ request()->routeIs('kunjungan_toko.*') ? 'true' : 'false' }}">
+
+        <span class="menu-title">Kunjungan Toko</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-file-pdf-box menu-icon"></i>
+      </a>
+
+      <div class="collapse {{ request()->routeIs('kunjungan_toko.*') ? 'show' : '' }}"
+        id="kunjungan_toko">
+
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('kunjungan_toko.toko.*') ? 'active' : '' }}"
+              href="{{ route('kunjungan_toko.toko') }}">
+              Daftar Toko
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('kunjungan_toko.kunjungan.*') ? 'active' : '' }}"
+              href="{{ route('kunjungan_toko.kunjungan') }}">
+              Daftar Kunjungan
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
   </ul>
 </nav>
 <!-- partial -->

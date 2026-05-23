@@ -72,12 +72,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/vendor/{idvendor}/pesanan', [App\Http\Controllers\VendorController::class, 'getPesananByVendor'])->name('vendor.pesanan.index');
     Route::get('/vendor/{idvendor}/pesanan/{idpesanan}', [App\Http\Controllers\VendorController::class, 'getDetailPesanan'])->name('vendor.pesanan.detail');
 
-    Route::get('barcode/{idbarang}', [App\Http\Controllers\BarcodeController::class, 'generateBarcode'])->name('barcode.generate');
-    Route::get('qrcode/{idpesanan}', [App\Http\Controllers\BarcodeController::class, 'generateQrCode'])->name('qrcode.generate');
+    Route::get('barcode/{data}', [App\Http\Controllers\BarcodeController::class, 'generateBarcode'])->name('barcode.generate');
+    Route::get('qrcode/{data}', [App\Http\Controllers\BarcodeController::class, 'generateQrCode'])->name('qrcode.generate');
 
     Route::get('customer/index',    [App\Http\Controllers\CustomerController::class, 'index'])->name('customer.index');
     Route::get('customer/create1', [App\Http\Controllers\CustomerController::class, 'create1'])->name('customer.create1');
     Route::get('customer/create2', [App\Http\Controllers\CustomerController::class, 'create2'])->name('customer.create2');
     Route::post('customer/store1', [App\Http\Controllers\CustomerController::class, 'store1'])->name('customer.store1');
     Route::post('customer/store2', [App\Http\Controllers\CustomerController::class, 'store2'])->name('customer.store2');
+
+    Route::get('/kunjungan_toko/toko', [App\Http\Controllers\KunjunganTokoController::class, 'indexToko'])->name('kunjungan_toko.toko');
+    Route::get('/kunjungan_toko/toko/create', [App\Http\Controllers\KunjunganTokoController::class, 'createToko'])->name('kunjungan_toko.toko.create');
+    Route::post('/kunjungan_toko/toko/store', [App\Http\Controllers\KunjunganTokoController::class, 'storeToko'])->name('kunjungan_toko.toko.store');
+    Route::get('/kunjungan_toko/toko/edit/{id}', [App\Http\Controllers\KunjunganTokoController::class, 'editToko'])->name('kunjungan_toko.toko.edit');
+    Route::post('/kunjungan_toko/toko/update/{id}', [App\Http\Controllers\KunjunganTokoController::class, 'updateToko'])->name('kunjungan_toko.toko.update');
+    Route::delete('/kunjungan_toko/toko/delete/{id}', [App\Http\Controllers\KunjunganTokoController::class, 'deleteToko'])->name('kunjungan_toko.toko.delete');
+
+    Route::get('/kunjungan_toko/kunjungan', [App\Http\Controllers\KunjunganTokoController::class, 'indexKunjungan'])->name('kunjungan_toko.kunjungan');
+    Route::get('/kunjungan_toko/kunjungan/create', [App\Http\Controllers\KunjunganTokoController::class, 'createKunjungan'])->name('kunjungan_toko.kunjungan.create');
+    Route::post('/kunjungan_toko/kunjungan/store', [App\Http\Controllers\KunjunganTokoController::class, 'storeKunjungan'])->name('kunjungan_toko.kunjungan.store');
 });

@@ -8,23 +8,23 @@ use Endroid\QrCode\Builder\Builder;
 
 class BarcodeController extends Controller
 {
-    public function generateBarcode($idbarang)
+    public function generateBarcode($data)
     {
         $generator = new BarcodeGeneratorSVG();
-        $barcode = $generator->getBarcode($idbarang, $generator::TYPE_CODE_128, 3);
+        $barcode = $generator->getBarcode($data, $generator::TYPE_CODE_128, 3);
 
         return response($barcode)->header('Content-Type', 'image/svg+xml');
     }
 
-    public function generateQrCode($idpesanan)
+    public function generateQrCode($data)
     {
         $builder = new Builder(
             writerOptions: [],
             validateResult: false,
-            data: $idpesanan,
+            data: $data,
             size: 300,
             margin: 10,
-            labelText: $idpesanan,
+            labelText: $data,
         );
 
         $qrCode = $builder->build();
