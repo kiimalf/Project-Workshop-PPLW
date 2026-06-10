@@ -43,6 +43,12 @@ body {
     @for($j = 1; $j <= $cols; $j++)
         <div class="label">
             @if($position >= $startIndex && $dataIndex < count($barang))
+                <div class="mb-2">
+                    @php
+                        $generator = new \Picqer\Barcode\BarcodeGeneratorPNG();
+                    @endphp
+                    <img src="data:image/png;base64,{{ base64_encode($generator->getBarcode($barang[$dataIndex]->idbarang, $generator::TYPE_CODE_128, 2, 40)) }}" alt="barcode" style="max-width: 100%;">
+                </div>
                 <strong>
                     {{ $barang[$dataIndex]->nama_barang }}
                 </strong>

@@ -107,7 +107,7 @@
     }
 
     // Fungsi untuk mendapatkan koordinat GPS secara akurat
-    function getAccuratePosition(targetAccuracy = 50, maxWait = 20000) { 
+    function getAccuratePosition(targetAccuracy = 50, maxWait = 2000) { 
         return new Promise((resolve, reject) => { 
             let bestResult = null; 
             const startTime = Date.now(); 
