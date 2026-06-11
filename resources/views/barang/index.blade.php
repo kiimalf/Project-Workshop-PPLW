@@ -156,7 +156,16 @@ href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
         // Setup Scanner Barcode
         const html5QrcodeScanner = new Html5QrcodeScanner(
             "reader",
-            { fps: 10, qrbox: {width: 250, height: 250} },
+            { 
+                fps: 15, // Tingkatkan fps agar lebih cepat membaca
+                qrbox: function(viewfinderWidth, viewfinderHeight) {
+                    // Agar responsif di HP (layar kecil), gunakan maksimal 80% dari lebar layar atau 300px
+                    let width = Math.min(300, viewfinderWidth * 0.8);
+                    return { width: width, height: 100 };
+                },
+                // Secara opsional, spesifikkan format barcode (CODE_128) agar lebih fokus dan cepat
+                formatsToSupport: [ Html5QrcodeSupportedFormats.CODE_128 ]
+            },
             /* verbose= */ false);
             
         function onScanSuccess(decodedText, decodedResult) {
